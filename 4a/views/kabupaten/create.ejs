@@ -1,0 +1,57 @@
+<%- include('../components/headComp') %> 
+
+
+      
+   <div id="main">
+
+
+      <div class="container py-4">
+         <% if(messages.fail) { %>
+            <div class="alert alert-danger alert-dismissible fade show animate__animated animate__flipInX" role="alert">
+              <strong><i class="fas fa-exclamation-triangle me-2"></i></strong> <%- messages.fail %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+         <% } %>
+
+         <div class="row">
+            <div class="animate__animated animate__flipInX">
+               <p class="float-start display-3">Add Kabupaten</p>
+            </div>
+         </div>
+
+         <div class="row mb-5">
+            <form class="form-floating" action="/kabupaten/store" method="post">
+               <div class="form-floating mb-3">
+                  <input type="text" class="form-control" name="nama" id="floatingInput" placeholder="title">
+                  <label for="floatingInput">Nama</label>
+                </div>
+               
+                <div class="form-floating mb-3">
+                  <select class="form-select" name="provinsi" id="floatingSelect">
+                    <option selected disabled>Select One</option>
+                    <% result.map(provinsi => { %>
+                       <option value="<%= provinsi.id %>"><%= provinsi.nama %></option>
+                    <% }) %> 
+                  </select>
+                  <label for="floatingSelect">Provinsi</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="date" class="form-control" name="diresmikan" id="floatingInput" placeholder="title">
+                  <label for="floatingInput">Diresmikan</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" name="photo" id="floatingInput" placeholder="title">
+                  <label for="floatingInput"> Url Photo </label>
+                </div>
+
+
+               <a href="/" class="btn btn-info float-start text-white mt-3"><i class="fas fa-arrow-left"></i>&nbsp; Back</a>
+               <button type="submit" class="btn btn-primary float-end mt-3"><i class="fas fa-plus"></i>&nbsp; Add</button>
+             </form>
+         </div>
+      </div>
+
+      <%- include('../components/footer') %> 
+   </div>
+</body>
+</html>

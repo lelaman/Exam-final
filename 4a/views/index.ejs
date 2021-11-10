@@ -1,0 +1,102 @@
+<%- include('components/headComp') %> 
+
+
+
+      
+   <div id="main">
+      <%- include('components/navbar') %> 
+
+      <div class="container py-4">
+         <% if(messages.successCreate) { %>
+            <div class="alert alert-success alert-dismissible fade show animate__animated animate__flipInX" role="alert">
+              <strong><i class="fas fa-check-circle me-2"></i></strong> <%- messages.successCreate %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+         <% } %>
+
+         <% if(messages.successUpdate) { %>
+            <div class="alert alert-primary alert-dismissible fade show animate__animated animate__flipInX" role="alert">
+              <strong><i class="fas fa-check-circle me-2"></i></strong> <%- messages.successUpdate %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+         <% } %>
+
+         <% if(messages.delete) { %>
+            <div class="alert alert-danger alert-dismissible fade show animate__animated animate__flipInX" role="alert">
+              <strong><i class="fas fa-trash me-2"></i></strong> <%- messages.delete %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+         <% } %>
+
+         <div class="container mb-20px py-5 px-5">
+         <div class="row mb-5">
+            <% result.map((kabupaten, key) => { %>
+               <div class="col-md-3">
+                  
+                     <div class= "single-blog">
+                     <img src="<%= kabupaten.photo %>" class="card-img-top" alt=" <%= kabupaten.nama %>">
+                     <div class="card-body">
+                       <h5 class="card-title"><%= kabupaten.nama %> </h5>
+
+                       <h5>
+                        <% const newDate = new Date( kabupaten.diresmikan)%>
+                        <%= 
+                          newDate.getDate() +"/" + (newDate.getMonth()+1) +  "/"+
+                          newDate.getFullYear()
+                        %>
+                       </h5>
+                       
+
+                       <% if(kabupaten.provinsi == " Sumatera Utara") { %>
+                        <p class="card-text text-danger"><%= kabupaten.provinsi %></p>
+                       <% } %> 
+                       <% if(kabupaten.provinsi == " Sumatera selatan") { %>
+                        <p class="card-text text-success"><%= kabupaten.provinsi %></p>
+                       <% } %> 
+                       <% if(kabupaten.provinsi == "  Bali") { %>
+                        <p class="card-text text-info"><%= kabupaten.provinsi %></p>
+                       <% } %>
+                       <!-- <a href="#" class="btn btn-primary">Detail</a> -->
+                       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detail<%= kabupaten.id %>">
+                        Detail
+                      </button>
+                     </div>
+                   </div>
+                   
+               
+            </div>
+               <!-- Modal -->
+               <div class="modal fade" id="detail<%= kabupaten.id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel"><%= kabupaten.nama %></h5>
+                        
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                     </div>
+                     <div class="modal-body">
+                        Name : <%= kabupaten.nama %> <br />
+                        provinsi : <%= kabupaten.provinsi %> <br />
+                        diresmikan: <%= kabupaten.diresmikan %> <br />
+                        photo :<%= kabupaten.photo %> <br />
+                        
+                     </div>
+                     <div class="modal-footer">
+                        <form action="/kabupaten/delete/<%= kabupaten.id %>">
+                           <button type="submit" class="btn btn-danger">Delete</button>
+                           <a href="/kabupaten/edit/<%= kabupaten.id %>" class="btn btn-info">Edit</a>
+                        </form>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                     </div>
+                  </div>
+                  </div>
+               </div>
+ 
+            <% }) %> 
+         </div>
+      </div>
+
+      <%- include('components/footer') %> 
+   </div>
+</body>
+</html>
